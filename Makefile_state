@@ -1,0 +1,4 @@
+EXTRA_CFLAGS := -I$(src)
+obj-y := sys_my_set_state.o
+mysys-y := $(src)/sys_my_set_state.o
+$(src)/sys_my_set_state.o: $(src)/my_vars.h

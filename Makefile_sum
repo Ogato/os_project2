@@ -1,0 +1,4 @@
+EXTRA_CFLAGS := -I$(src)
+obj-y := sys_my_get_and_sum.o
+mysys-y := $(src)/sys_my_get_and_sum.o
+$(src)/sys_my_get_and_sum.o: $(src)/../set_state/my_vars.h
