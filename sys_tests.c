@@ -1,51 +1,45 @@
-#include <stdio.h>
 #include <linux/kernel.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-#include <assert.h>
+#include <linux/errno.h>
+#include <linux/string.h>
+#include <linux/slab.h>
+#include <linux/uaccess.h>
+#include "my_vars.h"
 
+/* Intialize global vars defined in my_vars.h */
+char* my_string = NULL;
+int my_accumulator = 0;
 
-/* This program tests three syscalls:
- *	sys_my_set_state
- *	sys_my_get_and_sum
- *	sys_my_get_string
+/* This syscall takes a string and integer. The global variables
+ * my_string and my_accumulator are then set to each of the args
+ * respectively
 */
-int main(){
-	/* Declare Variables */
-	long int set_state_val;
-	long int get_and_sum_val;
-	long int get_string_val;
-	char* enter_str;
-	char* receive_str;
-	int receive_len;
-	int enter_val;
-	int receive_val;
-	int* receive_val_pointer;
-	int inc_val;
+asmlinkage long sys_my_set_state(char* the_string, int accumulator){
 
-	enter_str = "Hello World\0";
-	receive_len = strlen(enter_str)/2;
-	receive_str = (char*)malloc(receive_len);
-	enter_val = 10;
-	receive_val = 0;
-	receive_val_pointer = &receive_val;
-	inc_val = 5;
+	/* Error if accumulator is negative */
+	if(accumulator < 0){
+		return -EINVAL;
+	}
 
-	/* First test of sys_my_set_state */
-	set_state_val = syscall(354, enter_str, enter_val);
-	assert(set_state_val == 0);
-	printf("sys_my_set_state first successful attempt\n");
+	/* Error if the_string is NULL or is not terminated correctly */
+	else if(the_string[strlen(the_string)] != '\0' || the_string == NULL){
+		return -EINVAL;
+	}
+	
+	else{
+		my_accumulator = accumulator;
 
-	/* First test of sys_my_get_and_sum */
-	get_and_sum_val = syscall(355, receive_val_pointer, inc_val);
-	assert(get_and_sum_val == 0);
-	assert(receive_val == (enter_val + inc_val));
-	printf("sys_my_get_and_sum 2nd int set: %d\n", receive_val);
+		/* Free my_string if it has already been set */
+		if(my_string != NULL){
+			kfree(my_string);
+		}
+		/* Allocate space for my_string from kernel memory*/
+		my_string = (char*)kmalloc(strlen(the_string), GFP_KERNEL);
 
-	/* First test of sys_my_get_string */
-	get_string_val = syscall(356, receive_str, receive_len);
-	assert(get_string_val == receive_len-1);
-	printf("First copied string: %s\nFirst received string: %s\n", enter_str, receive_str);
+		/* Error if copy_from_user fails */
+		if(copy_from_user(my_string, the_string, strlen(the_string)) != 0){
+			return -EOVERFLOW;
+		}
+	}
 
 	return 0;
 }
