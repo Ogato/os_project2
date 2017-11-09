@@ -1,0 +1,5 @@
+CC=gcc
+
+sys_tests: sys_tests.o
+	$(CC) -o sys_tests sys_tests.o
+	rm sys_tests.o
