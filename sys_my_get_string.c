@@ -37,7 +37,7 @@ asmlinkage long sys_my_get_string(char* buf, int bsize){
 	}
 
 	/* Append terminating char to end of string */
-	buf[copylen-1] = '\0';
+	buf[copylen] = '\0';
 
 	return copylen;
 }
