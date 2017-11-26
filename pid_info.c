@@ -30,7 +30,7 @@ static int pid_info_init(void){
         	list_for_each_entry(pos, &(current->tasks), tasks){
                 	if(pos->pid == pid){
 				/* Display process information */
-                        	printk(KERN_NOTICE"PID: %d\nUID: %d\nGID: %d\nParentID: %d\nName: %s\nFlags:\n",pos->pid,
+                        	printk(KERN_NOTICE"PID: %d\nUID: %lu\nGID: %lu\nParentID: %d\nName: %s\nFlags:\n",pos->pid,
 									     				pos->cred->uid,
                                 	    	        	                                        pos->cred->gid,
                                         		                                                pos->real_parent->pid,
@@ -137,7 +137,7 @@ static int pid_info_init(void){
 
 	/* Access informaiton directly from current */
 	else{
-		printk(KERN_NOTICE"PID: %d\nUID: %d\nGID: %d\nParentID: %d\nParent Name: %s\nFlags:\n",current->pid,
+		printk(KERN_NOTICE"PID: %d\nUID: %lu\nGID: %lu\nParentID: %d\nParent Name: %s\nFlags:\n",current->pid,
 											current->cred->uid,
                                                                                		current->cred->gid,
                                        			                      		current->real_parent->pid,
