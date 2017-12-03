@@ -1,6 +1,6 @@
-diff -upr -X linux-3.16/Documentation/dontdiff linux-3.16/arch/m32r/kernel/syscall_table.S linux-3.16.new/arch/m32r/kernel/syscall_table.S
---- linux-3.16/arch/m32r/kernel/syscall_table.S	2014-08-03 16:25:02.000000000 -0600
-+++ linux-3.16.new/arch/m32r/kernel/syscall_table.S	2017-11-25 15:25:08.284000000 -0700
+diff -upr -X /linux/linux-3.16/Documentation/dontdiff /linux/linux-3.16/arch/m32r/kernel/syscall_table.S /linux/linux-3.16.new/arch/m32r/kernel/syscall_table.S
+--- /linux/linux-3.16/arch/m32r/kernel/syscall_table.S	2014-08-03 16:25:02.000000000 -0600
++++ /linux/linux-3.16.new/arch/m32r/kernel/syscall_table.S	2017-11-25 15:25:08.284000000 -0700
 @@ -325,3 +325,7 @@ ENTRY(sys_call_table)
  	.long sys_eventfd
  	.long sys_fallocate
@@ -9,9 +9,9 @@ diff -upr -X linux-3.16/Documentation/dontdiff linux-3.16/arch/m32r/kernel/sysca
 +	.long sys_my_get_and_sum
 +	.long sys_my_get_string
 +
-diff -upr -X linux-3.16/Documentation/dontdiff linux-3.16/arch/x86/syscalls/syscall_32.tbl linux-3.16.new/arch/x86/syscalls/syscall_32.tbl
---- linux-3.16/arch/x86/syscalls/syscall_32.tbl	2014-08-03 16:25:02.000000000 -0600
-+++ linux-3.16.new/arch/x86/syscalls/syscall_32.tbl	2017-11-25 15:29:38.540000000 -0700
+diff -upr -X /linux/linux-3.16/Documentation/dontdiff /linux/linux-3.16/arch/x86/syscalls/syscall_32.tbl /linux/linux-3.16.new/arch/x86/syscalls/syscall_32.tbl
+--- /linux/linux-3.16/arch/x86/syscalls/syscall_32.tbl	2014-08-03 16:25:02.000000000 -0600
++++ /linux/linux-3.16.new/arch/x86/syscalls/syscall_32.tbl	2017-11-25 15:29:38.540000000 -0700
 @@ -360,3 +360,7 @@
  351	i386	sched_setattr		sys_sched_setattr
  352	i386	sched_getattr		sys_sched_getattr
@@ -20,13 +20,13 @@ diff -upr -X linux-3.16/Documentation/dontdiff linux-3.16/arch/x86/syscalls/sysc
 +355	i386	my_get_and_sum		sys_my_get_and_sum
 +356	i386	my_get_string		sys_my_get_string
 +
-Only in linux-3.16.new/arch/x86/vdso: vdso-image-32-int80.c
-Only in linux-3.16.new/arch/x86/vdso: vdso-image-32-sysenter.c
-Only in linux-3.16.new/: get_string
-Only in linux-3.16.new/: get_sum
-diff -upr -X linux-3.16/Documentation/dontdiff linux-3.16/Makefile linux-3.16.new/Makefile
---- linux-3.16/Makefile	2014-08-03 16:25:02.000000000 -0600
-+++ linux-3.16.new/Makefile	2017-11-25 15:32:25.188000000 -0700
+Only in /linux/linux-3.16.new/arch/x86/vdso: vdso-image-32-int80.c
+Only in /linux/linux-3.16.new/arch/x86/vdso: vdso-image-32-sysenter.c
+Only in /linux/linux-3.16.new: get_string
+Only in /linux/linux-3.16.new: get_sum
+diff -upr -X /linux/linux-3.16/Documentation/dontdiff /linux/linux-3.16/Makefile /linux/linux-3.16.new/Makefile
+--- /linux/linux-3.16/Makefile	2014-08-03 16:25:02.000000000 -0600
++++ /linux/linux-3.16.new/Makefile	2017-11-25 15:32:25.188000000 -0700
 @@ -1,7 +1,7 @@
  VERSION = 3
  PATCHLEVEL = 16
@@ -45,6 +45,6 @@ diff -upr -X linux-3.16/Documentation/dontdiff linux-3.16/Makefile linux-3.16.ne
  
  vmlinux-dirs	:= $(patsubst %/,%,$(filter %/, $(init-y) $(init-m) \
  		     $(core-y) $(core-m) $(drivers-y) $(drivers-m) \
-Only in linux-3.16.new/security/tomoyo: builtin-policy.h
-Only in linux-3.16.new/security/tomoyo: policy
-Only in linux-3.16.new/: set_state
+Only in /linux/linux-3.16.new/security/tomoyo: builtin-policy.h
+Only in /linux/linux-3.16.new/security/tomoyo: policy
+Only in /linux/linux-3.16.new: set_state
