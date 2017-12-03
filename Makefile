@@ -1,10 +1,9 @@
-all: pid_info vminfo tests
+obj-m += pid_info.o pid_vminfo.o
 
-pid_info:
-	$(MAKE) -f Makefile.info
+all:
+	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+	$(CC) sys_tests.c -o tests
 
-vminfo:
-	$(MAKE) -f Makefile.vminfo
-
-tests:
-	$(MAKE) -f Makefile.tests
+clean:
+	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+	rm tests
